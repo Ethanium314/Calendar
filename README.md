@@ -17,3 +17,12 @@
 - enter: enter day view of selected day
 - shift-right: next month
 - shift-left: previous month
+
+## Install:
+
+- Clone repository
+- run "make install"
+
+## Uninstall
+
+- run "make clean"
