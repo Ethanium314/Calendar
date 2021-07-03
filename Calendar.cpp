@@ -214,9 +214,9 @@ class calendar
 				{
 					mvwaddch(win, (i * month_line_size + 2), (j * month_col_size + 1), ' ');
 					mvwaddch(win, (i * month_line_size + 2), (j * month_col_size + 2), ' ');
-					for (int k = 0; k < month_line_size; k++)
+					for (int k = 0; k <= month_line_size; k++)
 					{
-						for (int l = 0; l < month_col_size; l++)
+						for (int l = 0; l <= month_col_size; l++)
 						{
 							mvwaddch(win, ( i      * month_line_size + k) + 1, ( j      * month_col_size    ), ACS_CKBOARD);
 							mvwaddch(win, ( i      * month_line_size + k) + 1, ((j + 1) * month_col_size    ), ACS_CKBOARD);
@@ -282,11 +282,18 @@ class calendar
 					exit(0);
 					break;
 
-				case 27:
+				case '\t':
 					cursor_x = (weekDay(year, month+1, day+1) * round(COLS / 7) + 1);
 					cursor_y = (floor(day / 6) * round(LINES / 6) + 2);
 					clearScreen();
 					type = "month";
+					return true;
+					break;
+
+				case KEY_RESIZE:
+					endwin();
+					refresh();
+					clearScreen();
 					return true;
 					break;
 
@@ -334,6 +341,14 @@ class calendar
 				exit(0);
 				return true;
 				break;
+
+				case KEY_RESIZE:
+					endwin();
+					refresh();
+					clearScreen();
+					return true;
+					break;
+
 			case KEY_SRIGHT:
 				month++;
 				normalize();
